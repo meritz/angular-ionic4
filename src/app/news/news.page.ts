@@ -10,14 +10,14 @@ import { Router } from '@angular/router';
 export class NewsPage implements OnInit {
 
   data: any;
-  page: 1;
+  page: 0;
+  
 
-  constructor(private newsService: NewsService, private router: Router) { }
+  constructor(private newsService: NewsService, private router: Router) {
+   }
 
   ngOnInit() {
-    this.newsService.getData(`everything?sources=ign&pageSize=5&page=${
-      this.page
-    }`)
+    this.newsService.getData(`top-headlines?sources=ign`)
     .subscribe(data => {
       console.log(data);
       this.data = data;
@@ -29,21 +29,19 @@ export class NewsPage implements OnInit {
     this.router.navigate(['/news-single']);
   }
 
-  loadMoreNews(event) {
-    this.page++;
-    console.log(event);
-    this.newsService.getData(`everything?sources=ign&pageSize=5&page=${
-      this.page
-    }`)
-    .subscribe(data => {
-      // console.log(data);
-      // this.data = data;
-      for (const article of data['articles']) {
-        this.data.articles.push(article);
-      }
-      event.target.complete();
-      console.log(this.data);
-    });
-  }
+  // loadMoreNews(event) {
+  //   this.page++;
+  //   console.log(event);
+  //   this.newsService.getData(`top-headlines?sources=ign`)
+  //   .subscribe(data => {
+  //     // console.log(data);
+  //     // this.data = data;
+  //     for (const article of data['articles']) {
+  //       this.data.articles.push(article);
+  //     }
+  //     event.target.complete();
+  //     console.log(this.data);
+  //   });
+  // }
 
 }
